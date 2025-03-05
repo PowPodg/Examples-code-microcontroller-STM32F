@@ -51,9 +51,9 @@ public:
 	        uint16_t arr = packet.freq - 1; 
 	        uint16_t ccr = arr / 2; 
 	        uint16_t rcr = packet.n ; 
-	        dma_buffer.emplace_back(arr); // ARR
-	        dma_buffer.emplace_back(rcr); // RCR
-	        dma_buffer.emplace_back(ccr); // CCR1
+	        dma_buffer.emplace_back(arr); 
+	        dma_buffer.emplace_back(rcr); 
+	        dma_buffer.emplace_back(ccr); 
 	    }
 	}
 
@@ -94,7 +94,7 @@ private:
         htim1.Instance = TIM1;
         htim1.Init.Prescaler = TIM_PSC;
         htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-        htim1.Init.Period = dma_buffer[0]; // Первоначальная настройка частоты
+        htim1.Init.Period = dma_buffer[0]; 
         htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
         htim1.Init.RepetitionCounter = dma_buffer[1];
 
@@ -102,9 +102,9 @@ private:
 
         TIM_OC_InitTypeDef sConfigOC = {0};
         sConfigOC.OCMode = TIM_OCMODE_PWM1;
-        sConfigOC.Pulse = dma_buffer[2]; // Скважность 50%
+        sConfigOC.Pulse = dma_buffer[2]; 
         sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
-        sConfigOC.OCFastMode = TIM_OCFAST_ENABLE;//TIM_OCFAST_DISABLE;
+        sConfigOC.OCFastMode = TIM_OCFAST_ENABLE;
 
         HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1);
 
